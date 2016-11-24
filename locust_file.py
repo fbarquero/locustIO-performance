@@ -1,7 +1,11 @@
 from locust import HttpLocust, TaskSet
 
-class UserBehavior(TaskSet):
+class MyTaskSet(TaskSet):
     pass
 
 class WebsiteUser(HttpLocust):
-    pass
+    task_set = MyTaskSet
+    host = "http://www.example.com"
+    stop_timeout = 30
+    min_wait = 2000
+    max_wait = 5000
