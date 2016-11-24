@@ -1,12 +1,21 @@
-from locust import HttpLocust, TaskSet
+from locust import HttpLocust, TaskSet, task
 
-class UserBehavior(TaskSet):
 
-    def get_tasks(self):
-        # client object and the requests are build in top of requests python module
-        # the base url to access is defined by the host attibute
-        # as client is an object
-        self.client.get("/")
+class MyTaskSet(TaskSet):
+    @task
+    class SubTaskSet(TaskSet):
+        @task
+        def my_sub_task(self):
+            pass
+
+        @task
+        def my_sub_task_2(self):
+            pass
+
+    @task
+    def parent_task(self):
+        pass
+
 
 class WebsiteUser(HttpLocust):
     pass
