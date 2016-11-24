@@ -6,16 +6,18 @@ class MyTaskSet(TaskSet):
     class SubTaskSet(TaskSet):
         @task
         def my_sub_task(self):
-            pass
+            self.client.get("/about")
 
         @task
         def my_sub_task_2(self):
-            pass
+            self.client.get("/test")
 
     @task
     def parent_task(self):
-        pass
+        self.client.get("/")
 
 
 class WebsiteUser(HttpLocust):
-    pass
+    task_set = MyTaskSet
+    host = "http://www.example.com"
+    stop_timeout = 30
